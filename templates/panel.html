@@ -1,0 +1,57 @@
+{% extends 'base_panel.html' %}
+{% block title %}v2-panel{% endblock %}
+{% block head %}
+    <script>
+        function copyUrl() {
+            var Url = document.getElementById("input");
+            Url.select(); // 选择对象
+            document.execCommand("Copy"); // 执行浏览器复制命令
+        }
+    </script>
+{% endblock %}
+{% block main %}
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{{ user_name }}, welcome to v2 panel !</h1>
+            <p></p>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>STEP 1</h1>
+            <p>Download proxy application.</p>
+            <p>Windows:<a href="/static/files/v2rayN.zip"><botton class="btn btn-primary btn-lg small">点击下载</botton></a></p>
+            <p>Android:<a href="/static/files/SagerNet.apk"><botton class="btn btn-primary btn-lg small">点击下载</botton></a></p>
+            <p>Apple:使用爱思助手或者淘宝获得海外商店的 Kitsunebi，详情请自行百度</p>
+
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>STEP 2</h1>
+            <p>Add my server in your proxy application.</p>
+            <p>
+                <input id="input" class="form-control" aria-describedby="basic-addon2"
+                       value="vmess://ewogICJ2IjogIjIiLAogICJwcyI6ICJnb2QiLAogICJhZGQiOiAiaHVhbmdoYW8uc3BhY2UiLAogICJwb3J0IjogNDc1MjIsCiAgImlkIjogIjJjMGJkNTI5LTQ1YjAtNDNlMy1jMzRjLTc2MDgzOWNiODlmYiIsCiAgImFpZCI6IDE2LAogICJuZXQiOiAidGNwIiwKICAidHlwZSI6ICJub25lIiwKICAiaG9zdCI6ICIiLAogICJwYXRoIjogIiIsCiAgInRscyI6ICJub25lIgp9"
+                       readonly/>
+            </p>
+            <p>
+                <botton class="btn btn-primary btn-lg small" onclick="copyUrl()">复制URL</botton>
+            </p>
+
+        </div>
+    </div>
+    <div class="container">
+        <div class="jumbotron">
+            <h1>STEP 3</h1>
+            <p>Enjoy your free Internet ~</p>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+
