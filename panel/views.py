@@ -1,25 +1,24 @@
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-
-from .models import User
 
 
 def index(request):
     if request.method == 'GET':
-        if request.session.get('username'):
-            return render(request, 'panel.html', {'user_name': request.session.get('username')})
+        if request.user.is_authenticated:
+            return render(request, 'panel.html', {'username': request.user.username})
         else:
             return render(request, 'index.html')
     if request.method == 'POST':
         username = request.POST["username"]
         password = request.POST["password"]
-        try:
-            user = User.objects.get(username=username)
-        except Exception as e:
-            return render(request, 'index.html')
-        if user.username == username and user.password == password:
+        user = authenticate(username=username, password=password)
+        if user is not None:
             # 记录会话状态
-            request.session['username'] = username
-            return render(request, 'panel.html', {'user_name': request.session.get('username')})
+            login(request, user)
+            return render(request, 'panel.html', {'username': request.user.username})
         else:
             return render(request, 'index.html')
 
@@ -28,12 +27,43 @@ def register(request):
     return render(request, 'register.html')
 
 
-def logout(request):
-    request.session.flush()
+def logout_view(request):
+    logout(request)
     return redirect("index")
 
+
+@login_required
 def xui(request):
     port = '54321'
-    hostname = request.get_host().split(':')[0]
+    # hostname = request.get_host().split(':')[0]
+    hostname = 'huanghao.space'
     url = 'http://' + hostname + ':' + port + '/'
     return redirect(url)
+
+
+@login_required
+def user_info(request):
+    username = request.user.username
+    user = User.objects.get(username=username)
+    content = {'username': username,
+               'balance': user.friend.balance,
+               'longitude': user.friend.longitude,
+               'latitude': user.friend.latitude,
+               'last_login': "{}年{}月{}日".format(user.last_login.year,user.last_login.month,user.last_login.day)
+               }
+
+    return render(request, 'user_info_panel.html', content)
+
+
+def update_location(request):
+    try:
+        username = request.POST['username']
+        longitude = request.POST['longitude']
+        latitude = request.POST['latitude']
+        user = User.objects.get(username=username)
+        user.longitude = longitude
+        user.latitude = latitude
+        user.save()
+        return HttpResponse("succeed")
+    except:
+        return HttpResponse("failed")
