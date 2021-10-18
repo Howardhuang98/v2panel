@@ -75,8 +75,8 @@ def update_location(request):
         longitude = request.POST['longitude']
         latitude = request.POST['latitude']
         user = User.objects.get(username=username)
-        user.longitude = longitude
-        user.latitude = latitude
+        user.friend.longitude = longitude
+        user.friend.latitude = latitude
         user.save()
         return HttpResponse("succeed")
     except:
