@@ -39,8 +39,7 @@ def register(request):
         else:
             return render(request, 'register.html')
 
-
-
+@login_required
 def logout_view(request):
     logout(request)
     return redirect("index")
@@ -63,7 +62,7 @@ def user_info(request):
                'balance': user.friend.balance,
                'longitude': user.friend.longitude,
                'latitude': user.friend.latitude,
-               'is_admin':user.is_staff,
+               'is_admin': user.is_staff,
                'last_login': "{}年{}月{}日".format(user.last_login.year, user.last_login.month, user.last_login.day)
                }
     task1.delay()
