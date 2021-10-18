@@ -13,11 +13,11 @@ from django.conf import settings
 import os
 
 # 指定django的settings
-os.environ.setdefault('DJANGO_SETTINGS_MODULE','v2panel.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'v2panel.settings')
 
 app = Celery('v2panel')
 app.conf.update(
-    BROKER_URL = 'redis://:@127.0.0.1:6379/1'
+    broker_url='redis://:123456@huanghao.space:6379/1'
 )
 # 自动去app中寻找tasks
 app.autodiscover_tasks(settings.INSTALLED_APPS)

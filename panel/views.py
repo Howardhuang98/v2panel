@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from .tasks import task1
 
 
 def index(request):
@@ -65,6 +66,7 @@ def user_info(request):
                'is_admin':user.is_staff,
                'last_login': "{}年{}月{}日".format(user.last_login.year, user.last_login.month, user.last_login.day)
                }
+    task1.delay()
 
     return render(request, 'user_info_panel.html', content)
 

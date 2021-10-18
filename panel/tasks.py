@@ -9,6 +9,7 @@
 
 from v2panel.celery import app
 
+
 @app.task
 def task1():
     print("task1")
