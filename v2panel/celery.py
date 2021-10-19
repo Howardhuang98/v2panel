@@ -11,13 +11,14 @@
 from celery import Celery
 from django.conf import settings
 import os
+from decouple import config
 
 # 指定django的settings
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'v2panel.settings')
 
 app = Celery('v2panel')
 app.conf.update(
-    broker_url='redis://:@huanghao.space:6379/1'
+    broker_url=config('BROKEN_RUL')
 )
 # 自动去app中寻找tasks
 app.autodiscover_tasks(settings.INSTALLED_APPS)
