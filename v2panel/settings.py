@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     # 静态文件管理
     'django.contrib.staticfiles',
+    # django celery 结果储存插件
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
