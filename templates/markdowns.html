@@ -1,0 +1,18 @@
+{% extends 'base_panel.html' %}
+{% block title %}v2-panel{% endblock %}
+{% block head %}
+
+{% endblock %}
+{% block main %}
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>{{ Markdown.name|safe }}</h1>
+            <p>{{ Markdown.content|safe }}</p>
+
+        </div>
+    </div>
+
+
+{% endblock %}
+

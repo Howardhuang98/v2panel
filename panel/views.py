@@ -3,6 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+
+from .models import Friend, Markdown
+import markdown
 from .tasks import task1
 
 
@@ -33,11 +36,23 @@ def register(request):
         repassword = request.POST['repassword']
         email = request.POST['email']
         invite_code = request.POST['invite_code']
-        if password == repassword and invite_code == "123456":
-            User.objects.create_user(username, email, password)
-            return redirect('index')
-        else:
-            return render(request, 'register.html')
+        try:
+            invite_user = Friend.objects.get(invite_code=invite_code)
+            if invite_user and password == repassword:
+                user = User.objects.create_user(username, email, password)
+                user.friend.who_invite = invite_user
+                user.friend.save()
+                return redirect('index')
+            else:
+                return render(request, 'register.html')
+        except:
+            return redirect(to='message', mess='注册失败，请联系管理员！')
+
+
+# 从url中捕获mess
+def message(request, mess: str):
+    return render(request, 'message.html', {'message': mess})
+
 
 @login_required
 def logout_view(request):
@@ -68,6 +83,16 @@ def user_info(request):
     task1.delay()
 
     return render(request, 'user_info_panel.html', content)
+
+def markdowns(request):
+    md = Markdown.objects.all()
+    md = markdown.Markdown(extensions=[
+        'markdown.extension.extra',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.toc'
+    ])
+    return render(request,'markdowns.html',{'Markdown':md})
+
 
 
 def update_location(request):

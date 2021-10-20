@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_index.html' %}
 {% block title %}Register{% endblock %}
 {% block main %}
     <body style="background: black">
@@ -13,7 +13,7 @@
                    style="margin-top: 15px">
             <input type="password" class="form-control" required="required" name="repassword" placeholder="请再输一次密码"
                    style="margin-top: 15px">
-            <input type="password" class="form-control" required="required" name="email" placeholder="邮箱"
+            <input type="email" class="form-control" required="required" name="email" placeholder="邮箱"
                    style="margin-top: 15px">
 
             <p>

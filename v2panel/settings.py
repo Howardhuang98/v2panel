@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # django celery 结果储存插件
     'django_celery_results',
+    # md 编辑器
+    'markdownx',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +140,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 登录url
 LOGIN_URL = ''
+
+# md  配置
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

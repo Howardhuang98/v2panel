@@ -1,0 +1,18 @@
+{% extends 'base_index.html' %}
+{% load static %}
+{% block title %}v2-panel{% endblock %}
+{% block main %}
+    <body style="background: black">
+    <div class="container-fluid">
+        <p class="text-center"><img src="{% static 'images/log.png' %}"></p>
+    </div>
+    <div class="container">
+        <div class="text-danger text-center "  ><p style="font-size: 50px">{{ message }}</p></div>
+    </div>
+    <div class="container" style="margin-top: 15px">
+        <form method="get" action="/register">
+            <button class="btn btn-warning btn-lg btn-primary btn-block" type="submit">返回到注册页</button>
+        </form>
+    </div>
+
+{% endblock %}
