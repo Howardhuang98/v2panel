@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
+from .forms import mdForm
 from .models import Friend, Markdown
 import markdown
 from .tasks import task1
@@ -85,13 +86,8 @@ def user_info(request):
     return render(request, 'user_info_panel.html', content)
 
 def markdowns(request):
-    md = Markdown.objects.all()
-    md = markdown.Markdown(extensions=[
-        'markdown.extension.extra',
-        'markdown.extensions.codehilite',
-        'markdown.extensions.toc'
-    ])
-    return render(request,'markdowns.html',{'Markdown':md})
+    form = mdForm()
+    return render(request,'markdowns.html',{'form':form})
 
 
 

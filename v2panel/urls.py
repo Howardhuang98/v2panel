@@ -27,6 +27,7 @@ urlpatterns = [
     path('user_info/', views.user_info, name='user_info'),
     path('update_location/', views.update_location, name='update_location'),
     path('message/<mess>/',views.message,name='message'),
-    path(r'markdownx/', include('markdownx.urls')),
+    path('markdowns/',views.markdowns),
+    path('markdownx/', include('markdownx.urls')),
 ]
 
